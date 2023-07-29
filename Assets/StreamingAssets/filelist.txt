@@ -1,0 +1,6 @@
+Assets/BuildResources/UI/Prefabs/TestUI.prefab|ui/prefabs/testui.prefab|Assets/BuildResources/UI/Res/btn_login.png|Assets/BuildResources/UI/Res/play.jpg
+Assets/BuildResources/UI/Res/bg01.png|ui/res/bg01.png
+Assets/BuildResources/UI/Res/btn_login.png|ui/res/btn_login.png
+Assets/BuildResources/UI/Res/game_tips.png|ui/res/game_tips.png
+Assets/BuildResources/UI/Res/play.jpg|ui/res/play.jpg
+Assets/BuildResources/UI/Res/register.jpg|ui/res/register.jpg

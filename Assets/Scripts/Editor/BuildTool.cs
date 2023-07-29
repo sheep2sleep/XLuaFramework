@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,10 +25,16 @@ public class BuildTool : Editor
         Build(BuildTarget.iOS);
     }
 
+    /// <summary>
+    /// 构建不同平台的Bundle包
+    /// </summary>
+    /// <param name="target"></param>
     static void Build(BuildTarget target)
     {
         // 构建的Bundle包列表
         List<AssetBundleBuild> assetBundleBuilds = new List<AssetBundleBuild>();
+        // 文件信息列表
+        List<string> bundleInfos = new List<string>();
 
         // 记录打包文件夹下所有需要打包的文件
         string[] files = Directory.GetFiles(PathUtil.BuildResourcesPath, "*", SearchOption.AllDirectories);
@@ -47,6 +54,15 @@ public class BuildTool : Editor
             assetBundle.assetBundleName = bundleName + ".ab";// bundle目录名称
 
             assetBundleBuilds.Add(assetBundle);
+
+            //添加文件和依赖信息
+            List<string> dependenceInfo = GetDependence(assetName);
+            string bundleInfo = assetName + "|" + bundleName;
+
+            if (dependenceInfo.Count > 0)
+                bundleInfo = bundleInfo + "|" + string.Join("|", dependenceInfo);
+
+            bundleInfos.Add(bundleInfo);
         }
 
         // 先清空输出文件夹，再新建输出文件夹
@@ -57,5 +73,25 @@ public class BuildTool : Editor
         // 构建Bundle包
         BuildPipeline.BuildAssetBundles(PathUtil.BundleOutPath, assetBundleBuilds.ToArray(), 
             BuildAssetBundleOptions.None, target);
+
+        // 输出版本文件
+        File.WriteAllLines(PathUtil.BundleOutPath + "/" + AppConst.FileListName, bundleInfos);
+
+        // 刷新Unity内容浏览器
+        AssetDatabase.Refresh();
+    }
+
+    /// <summary>
+    /// 获取依赖文件列表
+    /// </summary>
+    /// <param name="curFile"></param>
+    /// <returns></returns>
+    static List<string> GetDependence(string curFile)
+    {
+        List<string> dependence = new List<string>();
+        string[] files = AssetDatabase.GetDependencies(curFile);
+        //排除脚本文件和自身
+        dependence = files.Where(file => !file.EndsWith(".cs") && !file.Equals(curFile)).ToList();
+        return dependence;
     }
 }

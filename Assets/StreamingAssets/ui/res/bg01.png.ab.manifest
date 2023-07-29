@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3331357437
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c82ed4112d4b3d83e600bef26d84e08f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f267fd2d8bcb1179236b6179ac5313bc
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/BuildResources/UI/Res/bg01.png
+Dependencies: []
