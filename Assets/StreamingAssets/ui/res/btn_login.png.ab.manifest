@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1067896768
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d0cd19a2ccd172a1a0bf499a5ce96f8d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f267fd2d8bcb1179236b6179ac5313bc
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/BuildResources/UI/Res/btn_login.png
+Dependencies: []
