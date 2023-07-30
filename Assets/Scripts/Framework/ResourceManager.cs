@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using UObject = UnityEngine.Object;
 
+
 public class ResourceManager : MonoBehaviour
 {
     // 文件信息类
@@ -72,11 +73,26 @@ public class ResourceManager : MonoBehaviour
         AssetBundleRequest bundleRequest = request.assetBundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
+        Debug.Log("this is LoadBundleAsync");
         // 调用回调
-        if(action != null && bundleRequest != null)
+        if (action != null && bundleRequest != null)
         {
             action.Invoke(bundleRequest.asset);
         }
+    }
+
+    /// <summary>
+    /// 编辑器加载资源
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <param name="action"></param>
+    void EditorLoadAsset(string assetName, Action<UObject> action = null)
+    {
+        Debug.Log("this is EditorLoadAsset");
+        UObject obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(UObject));
+        if (obj == null)
+            Debug.LogError("assets name is not exist:" + assetName);
+        action?.Invoke(obj);
     }
 
     /// <summary>
@@ -86,7 +102,10 @@ public class ResourceManager : MonoBehaviour
     /// <param name="action"></param>
     private void LoadAsset(string assetName, Action<UObject> action)
     {
-        StartCoroutine(LoadBundleAsync(assetName, action));
+        if (AppConst.GameMode == GameMode.EditorMode)
+            EditorLoadAsset(assetName, action);
+        else
+            StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
     // 加载各类资源的接口
