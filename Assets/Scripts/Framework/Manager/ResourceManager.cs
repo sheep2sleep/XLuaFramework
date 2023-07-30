@@ -22,7 +22,7 @@ public class ResourceManager : MonoBehaviour
     /// <summary>
     /// 解析版本文件
     /// </summary>
-    private void ParseVersionFile()
+    public void ParseVersionFile()
     {
         // 版本文件的路径
         string url = Path.Combine(PathUtil.BundleResourcePath, AppConst.FileListName);
@@ -89,10 +89,12 @@ public class ResourceManager : MonoBehaviour
     void EditorLoadAsset(string assetName, Action<UObject> action = null)
     {
         Debug.Log("this is EditorLoadAsset");
+#if UNITY_EDITOR
         UObject obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(UObject));
         if (obj == null)
             Debug.LogError("assets name is not exist:" + assetName);
         action?.Invoke(obj);
+#endif
     }
 
     /// <summary>
@@ -136,18 +138,4 @@ public class ResourceManager : MonoBehaviour
 
 
     // TODO：卸载暂时没做
-
-    void Start()
-    {
-        ParseVersionFile();
-        LoadUI("Login/LoginUI", OnComplete); 
-    }
-
-    private void OnComplete(UObject obj)
-    {
-        GameObject go = Instantiate(obj) as GameObject;
-        go.transform.SetParent(this.transform);
-        go.SetActive(true);
-        go.transform.localPosition = Vector3.zero;
-    }
 }
