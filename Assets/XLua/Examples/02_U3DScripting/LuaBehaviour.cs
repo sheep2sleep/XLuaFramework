@@ -24,17 +24,19 @@ namespace XLuaTest
     [LuaCallCSharp]
     public class LuaBehaviour : MonoBehaviour
     {
-        public TextAsset luaScript;
+        public TextAsset luaScript;//Lua脚本内容
         public Injection[] injections;
 
-        internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
+        internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only! 只能有一个Lua虚拟机
         internal static float lastGCTime = 0;
-        internal const float GCInterval = 1;//1 second 
+        internal const float GCInterval = 1;//1 second 每秒GC一次
 
+        // 引用Lua方法的委托
         private Action luaStart;
         private Action luaUpdate;
         private Action luaOnDestroy;
 
+        // 脚本的运行环境
         private LuaTable scriptEnv;
 
         void Awake()
@@ -47,19 +49,22 @@ namespace XLuaTest
             scriptEnv.SetMetaTable(meta);
             meta.Dispose();
 
-            scriptEnv.Set("self", this);
+            scriptEnv.Set("self", this);//把本脚本作为一个self变量注入到Lua中，Lua直接通过self来使用
             foreach (var injection in injections)
             {
                 scriptEnv.Set(injection.name, injection.value);
             }
 
+            // 把Lua脚本绑定到当前的这个C#脚本运行环境scriptEnv中
             luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
 
+            // 绑定Lua方法
             Action luaAwake = scriptEnv.Get<Action>("awake");
             scriptEnv.Get("start", out luaStart);
             scriptEnv.Get("update", out luaUpdate);
             scriptEnv.Get("ondestroy", out luaOnDestroy);
 
+            // 在C#的Awake中调用Lua的awake
             if (luaAwake != null)
             {
                 luaAwake();

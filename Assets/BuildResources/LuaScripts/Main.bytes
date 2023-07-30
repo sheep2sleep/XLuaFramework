@@ -1,5 +1,18 @@
+--所有导入的类都在CS的命名空间下
+Manager = CS.Manager
+
+--定义分组的变量
+local group = {
+	"Main",
+	"UI",
+	"Box",
+}
+Manager.UI:SetUIGroup(group)
+
 function Main()
 	print("hello main")
+	Manager.UI:OpenUI("TestUI","UI","UI.TestUI")
+	Manager.UI:OpenUI("Login/LoginUI","Main","UI.TestUI")
 end
 
 Main()

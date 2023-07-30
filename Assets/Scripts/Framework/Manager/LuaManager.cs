@@ -58,7 +58,7 @@ public class LuaManager : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    private byte[] GetLuaScript(string name)
+    public byte[] GetLuaScript(string name)
     {
         // 在lua中写require经常使用.作为路径，将其替换为/
         name = name.Replace(".", "/");
@@ -120,6 +120,8 @@ public class LuaManager : MonoBehaviour
             // 读取文件添加到Lua脚本缓存中
             AddLuaScript(PathUtil.GetUnityPath(fileName), file);
         }
+        // 加载完毕进行回调
+        InitOK?.Invoke();
     }
 #endif
 
