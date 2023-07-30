@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1421161493
+CRC: 1404012138
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a097a8931764fa787ef3f2406185074d
+    Hash: d0aacb2f26de4c40d6e49120c33373ce
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1e2e87ccfd6e2265e741c8956ce4df30
@@ -39,7 +39,7 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
-- Assets/BuildResources/UI/Prefabs/TestUI.prefab
+- Assets/BuildResources/UI/Prefabs/Login/LoginUI.prefab
 Dependencies:
 - E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/btn_login.png.ab
-- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/play.jpg.ab
+- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/register.jpg.ab

@@ -33,14 +33,15 @@ public class BuildTool : Editor
     {
         // 构建的Bundle包列表
         List<AssetBundleBuild> assetBundleBuilds = new List<AssetBundleBuild>();
-        // 文件信息列表
+        // 版本信息文件列表
         List<string> bundleInfos = new List<string>();
 
         // 记录打包文件夹下所有需要打包的文件
         string[] files = Directory.GetFiles(PathUtil.BuildResourcesPath, "*", SearchOption.AllDirectories);
-            // 排除meta文件
+            
         for(int i=0; i < files.Length; i++)
         {
+            // 排除meta文件
             if (files[i].EndsWith(".meta"))
                 continue;
             AssetBundleBuild assetBundle = new AssetBundleBuild();
@@ -48,14 +49,15 @@ public class BuildTool : Editor
             string fileName = PathUtil.GetStandardPath(files[i]);
             Debug.Log("file:" + fileName);
 
+            // 设置资源相对路径和bundle目录名称
             string assetName = PathUtil.GetUnityPath(fileName);
-            assetBundle.assetNames = new string[] { assetName };// 资源相对目录
+            assetBundle.assetNames = new string[] { assetName };
             string bundleName = fileName.Replace(PathUtil.BuildResourcesPath, "").ToLower();
-            assetBundle.assetBundleName = bundleName + ".ab";// bundle目录名称
+            assetBundle.assetBundleName = bundleName + ".ab";
 
             assetBundleBuilds.Add(assetBundle);
 
-            //添加文件和依赖信息
+            // 添加文件和依赖信息
             List<string> dependenceInfo = GetDependence(assetName);
             string bundleInfo = assetName + "|" + bundleName + ".ab";
 
@@ -90,7 +92,7 @@ public class BuildTool : Editor
     {
         List<string> dependence = new List<string>();
         string[] files = AssetDatabase.GetDependencies(curFile);
-        //排除脚本文件和自身
+        // 排除脚本文件和自身
         dependence = files.Where(file => !file.EndsWith(".cs") && !file.Equals(curFile)).ToList();
         return dependence;
     }

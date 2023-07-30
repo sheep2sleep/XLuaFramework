@@ -59,6 +59,7 @@ public class ResourceManager : MonoBehaviour
         List<string> dependences = m_BundleInfos[assetName].Dependences;
         if(dependences != null && dependences.Count > 0)
         {
+            // 递归加载依赖的资源
             for(int i = 0; i<dependences.Count; i++)
             {
                 yield return LoadBundleAsync(dependences[i]);
@@ -83,16 +84,44 @@ public class ResourceManager : MonoBehaviour
     /// </summary>
     /// <param name="assetName"></param>
     /// <param name="action"></param>
-    public void LoadAsset(string assetName, Action<UObject> action)
+    private void LoadAsset(string assetName, Action<UObject> action)
     {
         StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
+    // 加载各类资源的接口
+    public void LoadUI(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(PathUtil.GetUIPath(assetName), action);
+    }
+
+    public void LoadMusic(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(PathUtil.GetMusicPath(assetName), action);
+    }
+
+    public void LoadSound(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(PathUtil.GetSoundPath(assetName), action);
+    }
+
+    public void LoadEffect(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(PathUtil.GetEffectPath(assetName), action);
+    }
+
+    public void LoadScene(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(PathUtil.GetScenePath(assetName), action);
+    }
+
+
+    // TODO：卸载暂时没做
 
     void Start()
     {
         ParseVersionFile();
-        LoadAsset("Assets/BuildResources/UI/Prefabs/TestUI.prefab", OnComplete);        
+        LoadUI("Login/LoginUI", OnComplete); 
     }
 
     private void OnComplete(UObject obj)
