@@ -42,6 +42,9 @@ public class ResourceManager : MonoBehaviour
                 bundleInfo.Dependences.Add(info[j]);
             }
             m_BundleInfos.Add(bundleInfo.AssetsName, bundleInfo);
+            //单独记录Lua文件
+            if (info[0].IndexOf("LuaScripts") > 0)
+                Manager.Lua.LuaNames.Add(info[0]);
         }
     }
 
@@ -81,6 +84,7 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     /// <summary>
     /// 编辑器加载资源
     /// </summary>
@@ -89,13 +93,13 @@ public class ResourceManager : MonoBehaviour
     void EditorLoadAsset(string assetName, Action<UObject> action = null)
     {
         Debug.Log("this is EditorLoadAsset");
-#if UNITY_EDITOR
+
         UObject obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(UObject));
         if (obj == null)
             Debug.LogError("assets name is not exist:" + assetName);
         action?.Invoke(obj);
-#endif
     }
+#endif
 
     /// <summary>
     /// 加载资源的接口
@@ -104,9 +108,11 @@ public class ResourceManager : MonoBehaviour
     /// <param name="action"></param>
     private void LoadAsset(string assetName, Action<UObject> action)
     {
+#if UNITY_EDITOR
         if (AppConst.GameMode == GameMode.EditorMode)
             EditorLoadAsset(assetName, action);
         else
+#endif
             StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
@@ -134,6 +140,11 @@ public class ResourceManager : MonoBehaviour
     public void LoadScene(string assetName, Action<UObject> action = null)
     {
         LoadAsset(PathUtil.GetScenePath(assetName), action);
+    }
+
+    public void LoadLua(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(assetName, action);
     }
 
 

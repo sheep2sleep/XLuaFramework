@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 2153574551
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: luascripts/main.bytes.ab
+      Dependencies: {}
+    Info_1:
+      Name: ui/prefabs/testui.prefab.ab
+      Dependencies:
+        Dependency_0: ui/res/btn_login.png.ab
+        Dependency_1: ui/res/play.jpg.ab
+    Info_2:
+      Name: ui/res/bg01.png.ab
+      Dependencies: {}
+    Info_3:
+      Name: ui/res/btn_login.png.ab
+      Dependencies: {}
+    Info_4:
+      Name: ui/res/game_tips.png.ab
+      Dependencies: {}
+    Info_5:
+      Name: ui/res/play.jpg.ab
+      Dependencies: {}
+    Info_6:
+      Name: ui/res/register.jpg.ab
+      Dependencies: {}
+    Info_7:
+      Name: ui/prefabs/login/loginui.prefab.ab
+      Dependencies:
+        Dependency_0: ui/res/btn_login.png.ab
+        Dependency_1: ui/res/register.jpg.ab
