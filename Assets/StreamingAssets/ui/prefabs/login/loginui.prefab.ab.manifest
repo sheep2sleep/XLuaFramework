@@ -1,21 +1,33 @@
 ManifestFileVersion: 0
-CRC: 1404012138
+CRC: 1899956335
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d0aacb2f26de4c40d6e49120c33373ce
+    Hash: 7278b1d6726ca2de3de41e5358271a76
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1e2e87ccfd6e2265e741c8956ce4df30
+    Hash: 1cbd4bc88386d51bad7c46b043c15440
 HashAppended: 0
 ClassTypes:
 - Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -33,13 +45,17 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.ColorBlock
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Slider/SliderEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/BuildResources/UI/Prefabs/Login/LoginUI.prefab
 Dependencies:
-- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/btn_login.png.ab
-- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/register.jpg.ab
+- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/ui_btton_1.png.ab
+- E:/Documents/Unity/2023/XLuaFramework/Assets/StreamingAssets/ui/res/ui_btton_2.png.ab

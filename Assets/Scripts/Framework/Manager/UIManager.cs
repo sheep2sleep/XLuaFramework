@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     // 缓存UI
-    Dictionary<string, GameObject> m_UI = new Dictionary<string, GameObject>();
+    //Dictionary<string, GameObject> m_UI = new Dictionary<string, GameObject>();
 
     // 保存UI分组
     Dictionary<string, Transform> m_UIGroups = new Dictionary<string, Transform>();
@@ -53,12 +53,19 @@ public class UIManager : MonoBehaviour
     public void OpenUI(string uiName, string group, string luaName)
     {
         GameObject ui = null;
+        Transform parent = GetUIGroup(group);
+        // ui的全路径
+        string uiPath = PathUtil.GetUIPath(uiName);
+        // 从对象池中取UI
+        Object uiObj = Manager.Pool.Spawn("UI", uiPath);
 
-        // 如果UI已经存在于缓存中，则直接调用Open不用Init了
-        if(m_UI.TryGetValue(uiName,out ui))
+        // 如果UI已经存在于对象池中，则直接调用Open不用Init了，再修改一下父节点从对象池中拿出
+        if(uiObj!=null)
         {
+            ui = uiObj as GameObject;
+            ui.transform.SetParent(parent, false);
             UILogic uILogic = ui.GetComponent<UILogic>();
-            uILogic.Open();
+            uILogic.Open();            
             return;
         }
 
@@ -67,13 +74,13 @@ public class UIManager : MonoBehaviour
         {
             // 实例化UI
             ui = Instantiate(obj) as GameObject;
-            // 位置设置到分组结点下，并将其添加到UI缓存中
-            Transform parent = GetUIGroup(group);
+            // 位置设置到分组结点下           
             ui.transform.SetParent(parent, false);
-            m_UI.Add(uiName, ui);
+            //m_UI.Add(uiName, ui);
 
             // 调用UILogic中的Init方法，并执行Open
             UILogic uILogic = ui.AddComponent<UILogic>();
+            uILogic.AssetName = uiPath;// 存储全路径为了后续卸载Asset使用
             uILogic.Init(luaName);
             uILogic.Open();
         });

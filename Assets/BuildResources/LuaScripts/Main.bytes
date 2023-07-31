@@ -30,6 +30,6 @@ function Main()
 	--Manager.Scene:LoadScene("Test01","Scene.Scene01");
 end
 
-Main()
+--Main()
 
 

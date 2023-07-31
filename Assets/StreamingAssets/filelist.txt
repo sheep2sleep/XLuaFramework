@@ -13,7 +13,7 @@ Assets/BuildResources/Model/Mat/player.mat|model/mat/player.mat.ab
 Assets/BuildResources/Model/Mat/test01.mat|model/mat/test01.mat.ab
 Assets/BuildResources/Model/Mat/test02.mat|model/mat/test02.mat.ab
 Assets/BuildResources/Model/Prefabs/Player.prefab|model/prefabs/player.prefab.ab|Assets/BuildResources/Model/Mat/player.mat
-Assets/BuildResources/UI/Prefabs/TestUI.prefab|ui/prefabs/testui.prefab.ab|Assets/BuildResources/UI/Res/ui_btton_2.png|Assets/BuildResources/UI/Res/play.jpg
+Assets/BuildResources/UI/Prefabs/TestUI.prefab|ui/prefabs/testui.prefab.ab|Assets/BuildResources/UI/Res/ui_btton_2.png|Assets/BuildResources/UI/Res/ui_btton_1.png|Assets/BuildResources/UI/Res/play.jpg
 Assets/BuildResources/UI/Res/bg01.png|ui/res/bg01.png.ab
 Assets/BuildResources/UI/Res/btn_login.png|ui/res/btn_login.png.ab
 Assets/BuildResources/UI/Res/game_tips.png|ui/res/game_tips.png.ab
@@ -21,4 +21,4 @@ Assets/BuildResources/UI/Res/play.jpg|ui/res/play.jpg.ab
 Assets/BuildResources/UI/Res/register.jpg|ui/res/register.jpg.ab
 Assets/BuildResources/UI/Res/ui_btton_1.png|ui/res/ui_btton_1.png.ab
 Assets/BuildResources/UI/Res/ui_btton_2.png|ui/res/ui_btton_2.png.ab
-Assets/BuildResources/UI/Prefabs/Login/LoginUI.prefab|ui/prefabs/login/loginui.prefab.ab|Assets/BuildResources/UI/Res/register.jpg|Assets/BuildResources/UI/Res/btn_login.png
+Assets/BuildResources/UI/Prefabs/Login/LoginUI.prefab|ui/prefabs/login/loginui.prefab.ab|Assets/BuildResources/UI/Res/ui_btton_2.png|Assets/BuildResources/UI/Res/ui_btton_1.png

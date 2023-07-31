@@ -16,13 +16,8 @@ public class LuaManager : MonoBehaviour
     // Lua虚拟机
     public LuaEnv LuaEnv;
 
-    Action InitOK;
-
-    public void Init(Action init)
+    public void Init()
     {
-        // 绑定事件
-        InitOK += init;
-
         // 初始化
         LuaEnv = new LuaEnv();
         LuaEnv.AddLoader(Loader);
@@ -97,7 +92,7 @@ public class LuaManager : MonoBehaviour
                  // 缓存完毕后清空Lua列表
                  if(m_LuaScripts.Count >= LuaNames.Count)
                  {
-                     InitOK?.Invoke();
+                     Manager.Event.Fire(10000);
                      LuaNames.Clear();
                      LuaNames = null;
                  }
@@ -121,7 +116,7 @@ public class LuaManager : MonoBehaviour
             AddLuaScript(PathUtil.GetUnityPath(fileName), file);
         }
         // 加载完毕进行回调
-        InitOK?.Invoke();
+        Manager.Event.Fire(10000);
     }
 #endif
 

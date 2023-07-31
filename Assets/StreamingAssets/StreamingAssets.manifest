@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1999451696
+CRC: 3306339256
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -54,7 +54,8 @@ AssetBundleManifest:
       Name: ui/prefabs/testui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/play.jpg.ab
-        Dependency_1: ui/res/ui_btton_2.png.ab
+        Dependency_1: ui/res/ui_btton_1.png.ab
+        Dependency_2: ui/res/ui_btton_2.png.ab
     Info_16:
       Name: ui/res/bg01.png.ab
       Dependencies: {}
@@ -79,5 +80,5 @@ AssetBundleManifest:
     Info_23:
       Name: ui/prefabs/login/loginui.prefab.ab
       Dependencies:
-        Dependency_0: ui/res/btn_login.png.ab
-        Dependency_1: ui/res/register.jpg.ab
+        Dependency_0: ui/res/ui_btton_1.png.ab
+        Dependency_1: ui/res/ui_btton_2.png.ab
