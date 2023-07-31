@@ -18,6 +18,8 @@ public class ResourceManager : MonoBehaviour
 
     // 存储所有Bundle信息的集合
     private Dictionary<string, BundleInfo> m_BundleInfos = new Dictionary<string, BundleInfo>();
+    // 存储所有已加载的Bundle资源
+    private Dictionary<string, AssetBundle> m_AssetBundles = new Dictionary<string, AssetBundle>();
 
     /// <summary>
     /// 解析版本文件
@@ -69,16 +71,24 @@ public class ResourceManager : MonoBehaviour
                 yield return LoadBundleAsync(dependences[i]);
             }
         }
+
         // 加载Bundle
-        AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
-        yield return request;
+        AssetBundle bundle = GetBundle(bundleName);
+        if(bundle == null)
+        {
+            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
+            yield return request;
+            bundle = request.assetBundle;
+            m_AssetBundles.Add(bundleName, bundle);
+        }
+            
         // 加载资源
         if (assetName.EndsWith(".unity"))//场景资源不通过该方式加载
         {
             action?.Invoke(null);
             yield break;
         }
-        AssetBundleRequest bundleRequest = request.assetBundle.LoadAssetAsync(assetName);
+        AssetBundleRequest bundleRequest = bundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
         Debug.Log("this is LoadBundleAsync");
@@ -87,6 +97,21 @@ public class ResourceManager : MonoBehaviour
         {
             action.Invoke(bundleRequest.asset);
         }
+    }
+
+    /// <summary>
+    /// 获取缓存中的Bundle
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    AssetBundle GetBundle(string name)
+    {
+        AssetBundle bundle = null;
+        if(m_AssetBundles.TryGetValue(name,out bundle))
+        {
+            return bundle;
+        }
+        return null;
     }
 
 #if UNITY_EDITOR
