@@ -65,13 +65,12 @@ public class UIManager : MonoBehaviour
         // 否则还要先Init一次再Open，模仿先Awake后Start的效果
         Manager.Resource.LoadUI(uiName, (UnityEngine.Object obj) =>
         {
-            // 实例化UI并将其添加到UI缓存中
+            // 实例化UI
             ui = Instantiate(obj) as GameObject;
-            m_UI.Add(uiName, ui);
-
-            // 位置设置到分组结点下
+            // 位置设置到分组结点下，并将其添加到UI缓存中
             Transform parent = GetUIGroup(group);
             ui.transform.SetParent(parent, false);
+            m_UI.Add(uiName, ui);
 
             // 调用UILogic中的Init方法，并执行Open
             UILogic uILogic = ui.AddComponent<UILogic>();

@@ -1,0 +1,25 @@
+function OnInit()
+	print("lua OnInit Scene02")
+end
+
+function OnActive()
+	print("lua OnActive Scene02")
+end
+
+function OnEnter()
+	print("lua OnEnter Scene02")
+	Manager.Entity:ShowEntity(PathUtil.GetModelPath("Player"),"Player","Entity.PlayerEntity")
+	--Manager.Scene:SetActive(self.SceneName);
+end
+
+function Update()
+	print("lua Update Scene02")
+end
+
+function OnInActive()
+	print("lua OnInActive Scene02")
+end
+
+function OnQuit()
+	print("lua OnQuit Scene02")
+end

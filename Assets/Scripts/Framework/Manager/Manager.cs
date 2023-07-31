@@ -23,10 +23,24 @@ public class Manager : MonoBehaviour
         get { return _ui; }
     }
 
+    private static EntityManager _entity;
+    public static EntityManager Entity
+    {
+        get { return _entity; }
+    }
+
+    private static MySceneManager _scene;
+    public static MySceneManager Scene
+    {
+        get { return _scene; }
+    }
+
     public void Awake()
     {
         _resource = this.gameObject.AddComponent<ResourceManager>();
         _lua = this.gameObject.AddComponent<LuaManager>();
         _ui = this.gameObject.AddComponent<UIManager>();
+        _entity = this.gameObject.AddComponent<EntityManager>();
+        _scene = this.gameObject.AddComponent<MySceneManager>();
     }
 }

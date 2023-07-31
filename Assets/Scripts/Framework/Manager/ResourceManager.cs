@@ -73,6 +73,11 @@ public class ResourceManager : MonoBehaviour
         AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
         yield return request;
         // 加载资源
+        if (assetName.EndsWith(".unity"))//场景资源不通过该方式加载
+        {
+            action?.Invoke(null);
+            yield break;
+        }
         AssetBundleRequest bundleRequest = request.assetBundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
@@ -143,6 +148,11 @@ public class ResourceManager : MonoBehaviour
     }
 
     public void LoadLua(string assetName, Action<UObject> action = null)
+    {
+        LoadAsset(assetName, action);
+    }
+    
+    public void LoadPrefab(string assetName, Action<UObject> action = null)
     {
         LoadAsset(assetName, action);
     }
