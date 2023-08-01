@@ -19,6 +19,8 @@ public class HotUpdate : MonoBehaviour
         public string fileName;
         public DownloadHandler fileData;
     }
+    // 下载文件数量
+    int m_DownloadCount;
 
     /// <summary>
     /// 下载单个文件
@@ -38,6 +40,7 @@ public class HotUpdate : MonoBehaviour
             yield break;
             // TODO:重试下载
         }
+        yield return new WaitForSeconds(0.2f);
         // 调用回调函数，传入文件句柄
         info.fileData = webRequest.downloadHandler;
         Complete?.Invoke(info);
@@ -84,8 +87,16 @@ public class HotUpdate : MonoBehaviour
         return downFileInfos;
     }
 
+	// Loading界面
+    GameObject loadingObj;
+    LoadingUI loadingUI;
     private void Start()
     {
+        GameObject go = Resources.Load<GameObject>("LoadingUI");
+        loadingObj = Instantiate(go);
+        loadingObj.transform.SetParent(this.transform);
+        loadingUI = loadingObj.GetComponent<LoadingUI>();
+
         if (IsFirstInstall())
         {
             // 首次安装则释放资源
@@ -117,6 +128,7 @@ public class HotUpdate : MonoBehaviour
     /// </summary>
     private void ReleaseResources()
     {
+		m_DownloadCount = 0;
         // 获取到FileList文件
         string url = Path.Combine(PathUtil.ReadPath, AppConst.FileListName);
         DownFileInfo info = new DownFileInfo();
@@ -137,6 +149,7 @@ public class HotUpdate : MonoBehaviour
         List<DownFileInfo> fileInfos = GetFileList(file.fileData.text, PathUtil.ReadPath);
         // 下载文件列表中所有文件
         StartCoroutine(DownLoadFile(fileInfos, OnReleaseFileComplete, OnReleaseAllFileComplete));
+        loadingUI.InitProgress(fileInfos.Count,"正在释放资源，不消耗流量...");
     }
 
     /// <summary>
@@ -161,6 +174,10 @@ public class HotUpdate : MonoBehaviour
         string writeFile = Path.Combine(PathUtil.ReadWritePath, fileInfo.fileName);
         // 执行文件写入
         FileUtil.WriteFile(writeFile, fileInfo.fileData.data);
+		// 每下载完一个文件更新进度条
+        m_DownloadCount++;
+        loadingUI.UpdateProgress(m_DownloadCount);
+
     }
 
     /// <summary>
@@ -182,6 +199,7 @@ public class HotUpdate : MonoBehaviour
     /// <param name="obj"></param>
     private void OnDownLoadServerFileListComplete(DownFileInfo file)
     {
+		m_DownloadCount = 0;
         // 保存服务器FileList文件的字节数组
         m_ServerFileListData = file.fileData.data;
         // 获取资源服务器的文件信息
@@ -192,6 +210,7 @@ public class HotUpdate : MonoBehaviour
         // 遍历资源服务器上的文件信息
         for(int i=0; i<fileInfos.Count; i++)
         {
+            // TODO：通过文件的MD5校验文件是否修改
             // 判断本地可读写目录是否存在该服务器文件信息
             string localFile = Path.Combine(PathUtil.ReadWritePath, fileInfos[i].fileName);
             if (!FileUtil.IsExists(localFile))
@@ -204,7 +223,10 @@ public class HotUpdate : MonoBehaviour
 
         // 如果有需要下载的文件，启动文件下载
         if (downListFiles.Count > 0)
+        {
             StartCoroutine(DownLoadFile(downListFiles, OnUpdateFileComplete, OnUpdateAllFileComplete));
+            loadingUI.InitProgress(downListFiles.Count, "正在更新...");
+        }
         else
             EnterGame();
     }
@@ -218,6 +240,7 @@ public class HotUpdate : MonoBehaviour
         FileUtil.WriteFile(Path.Combine(PathUtil.ReadWritePath, AppConst.FileListName), m_ServerFileListData);
         // 更新完成进入游戏
         EnterGame();
+        loadingUI.InitProgress(0, "正在载入...");
     }
 
     /// <summary>
@@ -231,6 +254,8 @@ public class HotUpdate : MonoBehaviour
         string writeFile = Path.Combine(PathUtil.ReadWritePath, fileInfo.fileName);
         // 执行文件写入
         FileUtil.WriteFile(writeFile, fileInfo.fileData.data);
+		m_DownloadCount++;
+        loadingUI.UpdateProgress(m_DownloadCount);
     }
 
     /// <summary>
@@ -238,15 +263,7 @@ public class HotUpdate : MonoBehaviour
     /// </summary>
     private void EnterGame()
     {
-        Manager.Resource.ParseVersionFile();
-        Manager.Resource.LoadUI("Login/LoginUI", OnComplete);
-    }
-
-    private void OnComplete(UObject obj)
-    {
-        GameObject go = Instantiate(obj) as GameObject;
-        go.transform.SetParent(this.transform);
-        go.SetActive(true);
-        go.transform.localPosition = Vector3.zero;
-    }
+		Manager.Event.Fire((int)GameEvent.GameInit);
+		Destroy(loadingObj);
+	}
 }

@@ -93,7 +93,7 @@ public class LuaManager : MonoBehaviour
                  // 缓存完毕后清空Lua列表
                  if(m_LuaScripts.Count >= LuaNames.Count)
                  {
-                     Manager.Event.Fire(10000);
+                     Manager.Event.Fire((int)GameEvent.StartLua);
                      LuaNames.Clear();
                      LuaNames = null;
                  }
@@ -117,7 +117,7 @@ public class LuaManager : MonoBehaviour
             AddLuaScript(PathUtil.GetUnityPath(fileName), file);
         }
         // 加载完毕进行回调
-        Manager.Event.Fire(10000);
+        Manager.Event.Fire((int)GameEvent.StartLua);
     }
 #endif
 

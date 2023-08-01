@@ -33,7 +33,7 @@ function Main()
 	--初始化后连接服务器
 	msg_mgr.init()
 	Manager.Net:Init()
-	Manager.Net:ConnectedServer("127.0.0.1",8000)
+	Manager.Net:ConnectedServer("192.168.31.110",8000)
 
 	--print("hello main")
 	Manager.UI:OpenUI("TestUI","UI","UI.TestUI")
