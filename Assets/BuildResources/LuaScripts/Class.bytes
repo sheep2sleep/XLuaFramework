@@ -1,0 +1,33 @@
+function Class(super)
+    local class  = nil;
+    if super then
+        --传入父类把父类设置为新表的index即元表
+        class = setmetatable({},{__index = super})
+        class.super = super
+    else
+        --否则就把创建一个新类并返回一个构造函数
+        class = {ctor = function() end}
+    end
+    class.__index = class
+
+    --调用子类和父类的构造函数
+    function class.new(...)
+        --new一个对象出来
+        local instance = setmetatable({},class)
+        local function create(inst,...)
+            --如果传入的是父类table就调用父类的create函数
+            if type(inst.super) == "table" then
+                create(inst.super,...)
+            end
+            --如果构造函数是一个方法就调用构造函数
+            if type(inst.ctor) == "function" then
+                inst.ctor(instance,...)
+            end
+        end
+        --调用create函数实例化
+        create(instance,...)
+        return instance
+    end
+
+    return class
+end

@@ -20,6 +20,7 @@ public class LuaManager : MonoBehaviour
     {
         // ≥ı ºªØ
         LuaEnv = new LuaEnv();
+        LuaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
         LuaEnv.AddLoader(Loader);
         m_LuaScripts = new Dictionary<string, byte[]>();
 

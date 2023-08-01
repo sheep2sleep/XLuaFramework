@@ -1,83 +1,98 @@
 ManifestFileVersion: 0
-CRC: 3306339256
+CRC: 1674706008
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: luascripts/main.bytes.ab
+      Name: luascripts/class.bytes.ab
       Dependencies: {}
     Info_1:
+      Name: luascripts/log.bytes.ab
+      Dependencies: {}
+    Info_2:
+      Name: luascripts/main.bytes.ab
+      Dependencies: {}
+    Info_3:
       Name: scenes/test01.unity.ab
       Dependencies:
         Dependency_0: model/mat/test01.mat.ab
-    Info_2:
+    Info_4:
       Name: scenes/test02.unity.ab
       Dependencies:
         Dependency_0: model/mat/test02.mat.ab
-    Info_3:
+    Info_5:
       Name: audio/music/bgm-login.mp3.ab
       Dependencies: {}
-    Info_4:
+    Info_6:
       Name: audio/music/bgm-select.mp3.ab
       Dependencies: {}
-    Info_5:
+    Info_7:
       Name: audio/sound/sfx_accept1.mp3.ab
       Dependencies: {}
-    Info_6:
+    Info_8:
       Name: audio/sound/sfx_shop_purchase.mp3.ab
       Dependencies: {}
-    Info_7:
+    Info_9:
       Name: luascripts/entity/playerentity.bytes.ab
       Dependencies: {}
-    Info_8:
-      Name: luascripts/scene/scene01.bytes.ab
-      Dependencies: {}
-    Info_9:
-      Name: luascripts/scene/scene02.bytes.ab
-      Dependencies: {}
     Info_10:
-      Name: luascripts/ui/testui.bytes.ab
+      Name: luascripts/message/base_msg.bytes.ab
       Dependencies: {}
     Info_11:
-      Name: model/mat/player.mat.ab
+      Name: luascripts/message/msg_mgr.bytes.ab
       Dependencies: {}
     Info_12:
-      Name: model/mat/test01.mat.ab
+      Name: luascripts/message/msg_test.bytes.ab
       Dependencies: {}
     Info_13:
-      Name: model/mat/test02.mat.ab
+      Name: luascripts/scene/scene01.bytes.ab
       Dependencies: {}
     Info_14:
+      Name: luascripts/scene/scene02.bytes.ab
+      Dependencies: {}
+    Info_15:
+      Name: luascripts/ui/testui.bytes.ab
+      Dependencies: {}
+    Info_16:
+      Name: model/mat/player.mat.ab
+      Dependencies: {}
+    Info_17:
+      Name: model/mat/test01.mat.ab
+      Dependencies: {}
+    Info_18:
+      Name: model/mat/test02.mat.ab
+      Dependencies: {}
+    Info_19:
       Name: model/prefabs/player.prefab.ab
       Dependencies:
         Dependency_0: model/mat/player.mat.ab
-    Info_15:
+    Info_20:
       Name: ui/prefabs/testui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/play.jpg.ab
         Dependency_1: ui/res/ui_btton_1.png.ab
         Dependency_2: ui/res/ui_btton_2.png.ab
-    Info_16:
+    Info_21:
       Name: ui/res/bg01.png.ab
       Dependencies: {}
-    Info_17:
+    Info_22:
       Name: ui/res/btn_login.png.ab
       Dependencies: {}
-    Info_18:
+    Info_23:
       Name: ui/res/game_tips.png.ab
       Dependencies: {}
-    Info_19:
+    Info_24:
       Name: ui/res/play.jpg.ab
       Dependencies: {}
-    Info_20:
+    Info_25:
       Name: ui/res/register.jpg.ab
       Dependencies: {}
-    Info_21:
+    Info_26:
       Name: ui/res/ui_btton_1.png.ab
       Dependencies: {}
-    Info_22:
+    Info_27:
       Name: ui/res/ui_btton_2.png.ab
       Dependencies: {}
-    Info_23:
+    Info_28:
       Name: ui/prefabs/login/loginui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/ui_btton_1.png.ab

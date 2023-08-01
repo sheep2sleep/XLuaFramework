@@ -1,0 +1,59 @@
+--将管理器定义为一个table
+local msg_mgr = {}
+--定义存放所有消息模块的列表
+local msg_model_list = {}
+--定义一个接收消息的回调方法列表
+local msg_responses = {}
+
+--手动添加每个消息模块名
+local msg_name_list = 
+{
+    "msg_test",
+}
+
+--初始化方法
+function msg_mgr.init()
+    --根据消息模块名new一个消息模块实例存到list中
+    for k,v in pairs(msg_name_list) do
+        msg_model_list[v] = require("Message."..v).new();
+    end
+end
+
+--通过名字从列表中取消息模块实例
+function msg_mgr.get_msg(key)
+    if not msg_model_list[key] then
+        Log.Error("脚本不存在；"..key)
+        return
+    end
+    return msg_model_list[key]
+end
+
+--注册消息（传入消息id和回调方法）
+function msg_mgr.register(msg_id,func)
+    if msg_responses[msg_id] then
+        Log.Error("消息已注册："..msg_id)
+        return
+    end
+    --将回调方法放到列表中
+    msg_responses[msg_id] = func
+end
+
+--在C#中调用的接收消息方法
+function ReceiveMessage(msg_id,message)
+    Log.Info("<color=#A0522Dreceive:<<<<<<<<<<<<<<<<<:id"..msg_id.." : "..message.."</color>")
+    if type(msg_responses[msg_id]) == "function" then
+        --定义了接收消息方法就直接调用
+        msg_responses[msg_id](message)
+    else
+        Log.Error("此消息没有res：",msg_id)
+    end
+end
+
+--发送消息方法（在base_msg请求时调用）
+function msg_mgr.send_msg(msg_id,send_data)
+    local str = Json.encode(send_data)--反解析成字符串
+    Log.Info("<color=#A0522Dreceive:>>>>>>>>>>>>>>>>>:id"..msg_id.." : "..str.."</color>")
+    Manager.Net:SendMessage(msg_id,str)--调用C#的方法发送消息
+end
+
+return msg_mgr

@@ -1,0 +1,15 @@
+--定义一个test类继承自base_msg
+local msg_test = Class(base_msg)
+
+--构造方法
+function msg_test:ctor()
+    --注册一个消息
+    self:add_req_res("first_test",1000,"id","user","password","listTest")
+end
+
+--接受方法
+function msg_test:res_first_test(message)
+	Log.Warning(message);
+end
+
+return msg_test
